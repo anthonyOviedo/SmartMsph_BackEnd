@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMARTHMSPH", "ControlClaro\SMARTHMSPH.csproj", "{EF1C2C02-5EE8-46C2-9D8C-BE6DEBBF53AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connection", "Connection\Connection.csproj", "{0D690FFA-CB67-49FD-B77D-CB26CE2F1F80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{521D9722-3176-40E9-80D9-3BA0FF3CAB1E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF1C2C02-5EE8-46C2-9D8C-BE6DEBBF53AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF1C2C02-5EE8-46C2-9D8C-BE6DEBBF53AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF1C2C02-5EE8-46C2-9D8C-BE6DEBBF53AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF1C2C02-5EE8-46C2-9D8C-BE6DEBBF53AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D690FFA-CB67-49FD-B77D-CB26CE2F1F80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D690FFA-CB67-49FD-B77D-CB26CE2F1F80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D690FFA-CB67-49FD-B77D-CB26CE2F1F80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D690FFA-CB67-49FD-B77D-CB26CE2F1F80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{521D9722-3176-40E9-80D9-3BA0FF3CAB1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{521D9722-3176-40E9-80D9-3BA0FF3CAB1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{521D9722-3176-40E9-80D9-3BA0FF3CAB1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{521D9722-3176-40E9-80D9-3BA0FF3CAB1E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4A6AF7CA-C438-478F-A7B0-D54B418E5D18}
+	EndGlobalSection
+EndGlobal

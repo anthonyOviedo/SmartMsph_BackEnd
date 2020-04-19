@@ -1,0 +1,32 @@
+C:\Fuentes\OTROS\ControlClaro\BackEnd\Connection\bin\Debug\Connection.dll
+C:\Fuentes\OTROS\ControlClaro\BackEnd\Connection\bin\Debug\Connection.pdb
+C:\Fuentes\OTROS\ControlClaro\BackEnd\Connection\obj\Debug\Connection.csproj.CoreCompileInputs.cache
+C:\Fuentes\OTROS\ControlClaro\BackEnd\Connection\obj\Debug\Connection.dll
+C:\Fuentes\OTROS\ControlClaro\BackEnd\Connection\obj\Debug\Connection.pdb
+C:\Fuentes\OTROS\ControlClaro\BackEnd\Connection\obj\Debug\Connection.csprojAssemblyReference.cache
+C:\Users\leine\Desktop\claro\ControlClaro\BackEnd\Connection\bin\Debug\Connection.dll
+C:\Users\leine\Desktop\claro\ControlClaro\BackEnd\Connection\bin\Debug\Connection.pdb
+C:\Users\leine\Desktop\claro\ControlClaro\BackEnd\Connection\obj\Debug\Connection.csprojAssemblyReference.cache
+C:\Users\leine\Desktop\claro\ControlClaro\BackEnd\Connection\obj\Debug\Connection.dll
+C:\Users\leine\Desktop\claro\ControlClaro\BackEnd\Connection\obj\Debug\Connection.pdb
+C:\Users\leine\Desktop\claro\ControlClaro\BackEnd\Connection\bin\Debug\MySql.Data.dll
+C:\Users\leine\Desktop\claro\ControlClaro\BackEnd\Connection\bin\Debug\Google.Protobuf.dll
+C:\Users\leine\Desktop\claro\ControlClaro\BackEnd\Connection\bin\Debug\MySql.Data.xml
+C:\Users\leine\Desktop\claro\ControlClaro\BackEnd\Connection\obj\Debug\Connection.csproj.CopyComplete
+C:\Users\leine\Desktop\Nueva carpeta\BackEnd\Connection\bin\Debug\Connection.dll
+C:\Users\leine\Desktop\Nueva carpeta\BackEnd\Connection\bin\Debug\Connection.pdb
+C:\Users\leine\Desktop\Nueva carpeta\BackEnd\Connection\bin\Debug\MySql.Data.dll
+C:\Users\leine\Desktop\Nueva carpeta\BackEnd\Connection\bin\Debug\Google.Protobuf.dll
+C:\Users\leine\Desktop\Nueva carpeta\BackEnd\Connection\bin\Debug\MySql.Data.xml
+C:\Users\leine\Desktop\Nueva carpeta\BackEnd\Connection\obj\Debug\Connection.csprojAssemblyReference.cache
+C:\Users\leine\Desktop\Nueva carpeta\BackEnd\Connection\obj\Debug\Connection.csproj.CopyComplete
+C:\Users\leine\Desktop\Nueva carpeta\BackEnd\Connection\obj\Debug\Connection.dll
+C:\Users\leine\Desktop\Nueva carpeta\BackEnd\Connection\obj\Debug\Connection.pdb
+C:\Users\Dell\Desktop\SMARTMSPH final\DEV-SMART-MSPH\proyecto\BackEnd\Connection\bin\Debug\Connection.dll
+C:\Users\Dell\Desktop\SMARTMSPH final\DEV-SMART-MSPH\proyecto\BackEnd\Connection\bin\Debug\Connection.pdb
+C:\Users\Dell\Desktop\SMARTMSPH final\DEV-SMART-MSPH\proyecto\BackEnd\Connection\bin\Debug\Google.Protobuf.dll
+C:\Users\Dell\Desktop\SMARTMSPH final\DEV-SMART-MSPH\proyecto\BackEnd\Connection\bin\Debug\MySql.Data.xml
+C:\Users\Dell\Desktop\SMARTMSPH final\DEV-SMART-MSPH\proyecto\BackEnd\Connection\obj\Debug\Connection.csprojAssemblyReference.cache
+C:\Users\Dell\Desktop\SMARTMSPH final\DEV-SMART-MSPH\proyecto\BackEnd\Connection\obj\Debug\Connection.csproj.CopyComplete
+C:\Users\Dell\Desktop\SMARTMSPH final\DEV-SMART-MSPH\proyecto\BackEnd\Connection\obj\Debug\Connection.dll
+C:\Users\Dell\Desktop\SMARTMSPH final\DEV-SMART-MSPH\proyecto\BackEnd\Connection\obj\Debug\Connection.pdb
