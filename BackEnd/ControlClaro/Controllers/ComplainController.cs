@@ -10,7 +10,7 @@ namespace ControlClaro.Controllers
 {
     public class ComplainController : ApiController
     {
-
+ /*       //revisar
         [HttpGet]
         [Route("api/queja/lista")]
         public HttpResponseMessage ListaDepartamentos()
@@ -47,9 +47,7 @@ namespace ControlClaro.Controllers
             return response;
         }
 
-
-
-
+        //revisar
         [HttpGet]
         [Route("api/Funcionario/listaFuncionarios/{depSeleccion}")]
         public HttpResponseMessage ListaFuncionarios( string depSeleccion)
@@ -85,9 +83,8 @@ namespace ControlClaro.Controllers
 
             return response;
         }
-
-
-
+*/
+       
         [HttpPost]
         [Route("api/queja/GuardarQueja/{queja}")]
         public HttpResponseMessage PostFile(Complain queja)
@@ -123,7 +120,15 @@ namespace ControlClaro.Controllers
             return response;
         }
 
+        //to do 
 
+        //delete / cancel
+
+        //update
+
+        //list
+
+        //list
 
 
     }

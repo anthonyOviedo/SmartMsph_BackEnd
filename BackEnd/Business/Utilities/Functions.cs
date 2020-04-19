@@ -165,7 +165,7 @@ namespace Business.Utilities
         public static ResponseConfig VerifyAuthorization(HttpRequestHeaders headers)
         {
             ResponseConfig response = new ResponseConfig();
-            Usuario usuario;
+            User usuario;
 
             try
             {
@@ -196,7 +196,7 @@ namespace Business.Utilities
             return response;
         }
 
-        public static string GenerateToken(Usuario usuario)
+        public static string GenerateToken(User usuario)
         {
             string token;
 
@@ -230,7 +230,7 @@ namespace Business.Utilities
             }
         }
 
-        public static bool VerifyToken(string token, out Usuario usuario)
+        public static bool VerifyToken(string token, out User usuario)
         {
             TokenValidationParameters tokenValidationParameters = GetTokenValidationParameters();
             JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
@@ -245,7 +245,7 @@ namespace Business.Utilities
 
                 jwtToken = (JwtSecurityToken)validatedToken;
 
-                usuario = new Usuario();
+                usuario = new User();
                 usuario.usuario_Id = jwtToken.Payload["usuario_Id"].ToString();
                 usuario.nombre = jwtToken.Payload["nombre"].ToString();
 

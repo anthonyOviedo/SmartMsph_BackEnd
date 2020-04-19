@@ -74,12 +74,13 @@
     <Compile Include="Models\ResponseConfig.cs" />
     <Compile Include="Models\RestError.cs" />
     <Compile Include="Models\RestResponse.cs" />
-    <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ComplainService.cs" />
     <Compile Include="Services\DenounceService.cs" />
+    <Compile Include="Services\DepartmentService.cs" />
     <Compile Include="Services\NewService.cs" />
-    <Compile Include="Services\UsuarioService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="Utilities\Declarations.cs" />
     <Compile Include="Utilities\Functions.cs" />
   </ItemGroup>

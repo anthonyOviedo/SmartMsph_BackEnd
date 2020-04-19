@@ -7,21 +7,21 @@ using static Business.Utilities.Functions;
 
 namespace Business.Services
 {
-    public class UsuarioService : BaseService, IDisposable
+    public class UserService : BaseService, IDisposable
     {
         #region Definition of Properties
         public long cantidad { get; set; }
         #endregion
         #region Definition of Constructors
-        public UsuarioService() : base()
+        public UserService() : base()
         {
 
         }
         #endregion
         #region Definition of Public Methods
-        public Usuario VerifyCredentials(string username, string password)
+        public User VerifyCredentials(string username, string password)
         {
-            Usuario usuario = new Usuario();
+            User usuario = new User();
             DataTable table;
             string query;
 
@@ -71,21 +71,17 @@ namespace Business.Services
             }
         }
 
-
-   
-
-
-        public List<Usuario> Lista(int pais_Id, int emp_Id, string criterio)
+        public List<User> list()
         {
-            List<Usuario> usuarios = new List<Usuario>();
+            List<User> usuarios = new List<User>();
             DataSet data;
             string query;
 
             try
             {
                 connection.Open();
-
-                query = "exec Usuario_Lista " + pais_Id.ToString() + "," + emp_Id.ToString() + ",'" + criterio.Trim() + "'";
+                //revisar query con lainer...
+                query = "select * from user;";
 
                 data = connection.SelectData(query);
 
@@ -94,15 +90,16 @@ namespace Business.Services
 
                 foreach (DataRow row in data.Tables[0].Rows)
                 {
-                    usuarios.Add(new Usuario()
+                    usuarios.Add(new User()
                     {
-                        usuario_Id = row["Usuario_Id"].ToString(),
-                        nombre = row["Nombre"].ToString(),
-                      
+                        usuario_Id = row["User_Id"].ToString(),
+                        nombre = row["UserName"].ToString(),
+                        rol = int.Parse(row["Role_id"].ToString()),
+                        persona = new Persona() { persona_Id = int.Parse(row["Person_Id"].ToString()) },
+                        departamento = new Department() { departamento_Id = int.Parse(row["department_id"].ToString()) }
                     });
-                }
 
-                this.cantidad = long.Parse(data.Tables[1].Rows[0]["Cantidad"].ToString());
+                }
 
                 return usuarios;
             }
@@ -116,7 +113,32 @@ namespace Business.Services
             }
         }
 
-        public void Registrarse(Usuario user)
+        public void add(User usuario)
+        {
+            string query;
+            try
+            {
+                connection.Open();
+                connection.BeginTransaction();
+
+                query = "CALL addUser(" + Int32.Parse(usuario.usuario_Id) + ",'" + usuario.nombre
+                    + "','" + usuario.password + "'," + usuario.persona.persona_Id + "," + usuario.rol + "," + usuario.departamento.departamento_Id + ");";
+
+                connection.Execute(query);
+                connection.CommitTransaction();
+            }
+            catch (Exception ex)
+            {
+                connection.RollBackTransaction();
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public void signUp(User user)
         {
             string query;
 
@@ -145,16 +167,15 @@ namespace Business.Services
             }
         }
 
-        public void Eliminar(string usuario_Id)
+        public void delete(string usuario_Id)
         {
             string query;
-
             try
             {
                 connection.Open();
                 connection.BeginTransaction();
-
-                query = "exec Usuario_Eliminar '" + usuario_Id + "'";
+                //CALL insert_studentinfo(125,'Raman','Bangalore','Computers')//
+                query = "CALL deleteUser(" + Int32.Parse(usuario_Id) + ")";
 
                 connection.Execute(query);
                 connection.CommitTransaction();
@@ -169,7 +190,7 @@ namespace Business.Services
                 connection.Close();
             }
         }
-
+        
         public void ChangePassword(string usuario_Id, string password, string newPassword)
         {
             string query;
@@ -195,6 +216,32 @@ namespace Business.Services
                 connection.Close();
             }
         }
+
+        public void update(User usuario)
+        {
+            string query;
+            try
+            {
+                connection.Open();
+                connection.BeginTransaction();
+
+                query = "CALL updateUser(" + Int32.Parse(usuario.usuario_Id) + ",'" + usuario.nombre
+                    + "'," + usuario.rol + "," + usuario.departamento.departamento_Id + ");";
+
+                connection.Execute(query);
+                connection.CommitTransaction();
+            }
+            catch (Exception ex)
+            {
+                connection.RollBackTransaction();
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
         #endregion
         #region Implements Interface IDisposable
         public void Dispose()

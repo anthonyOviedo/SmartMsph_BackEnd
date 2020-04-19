@@ -1,6 +1,6 @@
 ﻿namespace Business.Models
 {
-    public class Usuario
+    public class User
     {
         #region Definition of Properties
         public string usuario_Id { get; set; }
@@ -11,7 +11,7 @@
         public Department departamento { get; set; }
         #endregion
         #region Definition of Constructors
-        public Usuario()
+        public User()
         {
             this.usuario_Id = string.Empty;
             this.nombre = string.Empty;

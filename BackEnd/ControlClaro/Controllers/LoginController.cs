@@ -17,20 +17,20 @@ namespace ControlClaro.Controllers
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             RestResponse data = new RestResponse();
-            Usuario usuario;
+            User user;
             string token;
 
             try
             {
-                using (UsuarioService service = new UsuarioService())
+                using (UserService service = new UserService())
                 {
-                    usuario = service.VerifyCredentials(username, password);                    
+                    user = service.VerifyCredentials(username, password);                    
                 }
 
-                token = GenerateToken(usuario);
+                token = GenerateToken(user);
 
                 data.status = true;
-                data.result = new { usuario, token };
+                data.result = new { user, token };
             }
             catch (Exception ex)
             {
@@ -48,8 +48,8 @@ namespace ControlClaro.Controllers
         }
 
         [HttpPost]
-        [Route("api/signin/registrarse")]
-        public HttpResponseMessage Guardar([FromBody] Usuario usuario)
+        [Route("api/signin/sigup")]
+        public HttpResponseMessage Guardar([FromBody] User user)
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             ResponseConfig config = VerifyAuthorization(Request.Headers);
@@ -58,9 +58,9 @@ namespace ControlClaro.Controllers
             try
             {
                
-                using (UsuarioService service = new UsuarioService())
+                using (UserService service = new UserService())
                 {
-                    service.Registrarse(usuario);
+                    service.signUp(user);
                     data.result = null;
                     data.status = true;
                     data.message = "Registro exitoso";
