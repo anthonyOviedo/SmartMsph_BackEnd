@@ -7,3 +7,5 @@
 *.cache
 *.dll
 *.dll
+!/**/*.dll
+!/**/*.suo
