@@ -47,7 +47,7 @@ namespace ControlClaro.Controllers
         }
 
         [HttpPost]
-        [Route("api/denounce/newDenounce/{Denuncia}")]
+        [Route("api/denounce/add")]
         public HttpResponseMessage add(Denounce denounce)
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);

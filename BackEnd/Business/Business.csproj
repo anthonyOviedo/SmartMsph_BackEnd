@@ -79,7 +79,7 @@
     <Compile Include="Services\ComplainService.cs" />
     <Compile Include="Services\DenounceService.cs" />
     <Compile Include="Services\DepartmentService.cs" />
-    <Compile Include="Services\NewService.cs" />
+    <Compile Include="Services\NewsService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Utilities\Declarations.cs" />
     <Compile Include="Utilities\Functions.cs" />

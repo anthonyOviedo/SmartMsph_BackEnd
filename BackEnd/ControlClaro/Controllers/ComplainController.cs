@@ -117,7 +117,7 @@ namespace ControlClaro.Controllers
 
         [HttpPost]
         [Route("api/complain/add")]
-        public HttpResponseMessage Add(Complain complain)
+        public HttpResponseMessage add(Complain complain)
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             ResponseConfig config = VerifyAuthorization(Request.Headers);
