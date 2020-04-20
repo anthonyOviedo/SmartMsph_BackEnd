@@ -21,7 +21,8 @@ namespace Business.Services
         #endregion
 
         #region Definition of Public Methods
-        public List<Complain> Lista(string user_Id)
+        //list of all complains
+        public List<Complain> list()
         {
             List<Complain> complains = new List<Complain>();
             DataSet data;
@@ -30,9 +31,8 @@ namespace Business.Services
             try
             {
                 connection.Open();
-
-                query = "CALL Complain_list ('" + user_Id.Trim() + "')";
-
+                //todo
+                query = "";
                 data = connection.SelectData(query);
 
                 if (data == null || data.Tables.Count == 0)
@@ -63,101 +63,8 @@ namespace Business.Services
                 connection.Close();
             }
         }
-       
 
-
-
-        public List<Department> TodosDespartamentos()
-        {
-            List<Department> departments = new List<Department>();
-            DataSet data;
-            string query;
-
-            try
-            {
-                connection.Open();
-
-                query = "CALL TodoDepartamento()";
-
-                data = connection.SelectData(query);
-
-                if (data == null || data.Tables.Count == 0)
-                    VerifyMessage("Ocurrió un error durante la transacción por favor inténtelo de nuevo");
-
-                foreach (DataRow row in data.Tables[0].Rows)
-                {
-                    departments.Add(new Department()
-                    {
-                        departamento_Id = int.Parse(row["Department_Id"].ToString()),
-                        nombre = row["DepartmentName"].ToString(),
-                        persona_id = int.Parse(row["Person_Id"].ToString())
-                    });
-                }
-
-               
-
-                return departments;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-
-        #endregion
-
-
-
-
-        public List<Funcionario> TodosFuncionarios( String depSeleccion)
-        {
-            List<Funcionario> funcionarios = new List<Funcionario>();
-            DataSet data;
-            string query;
-            int numero = Int32.Parse(depSeleccion);
-
-            try
-            {
-                connection.Open();
-              
-                query = "CALL FuncioXDeparta" + "('" + numero + "'" +")";
-                                data = connection.SelectData(query);
-
-                if (data == null || data.Tables.Count == 0)
-                    VerifyMessage("Ocurrió un error durante la transacción por favor inténtelo de nuevo");
-
-                foreach (DataRow row in data.Tables[0].Rows)
-                {
-                    funcionarios.Add(new Funcionario()
-                    {
-                        Person_Id = int.Parse(row["Person_Id"].ToString()),
-                        apellido1 = row["LastName1"].ToString(),
-                        apellido2 = row["LastName2"].ToString(),
-                        nombre = row["Name"].ToString()
-
-                    });
-                }
-
-
-
-                return funcionarios;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-
-
-        public void GuardarQueja(string descripcion,int estado,int id_persona,  int id_usuario,string empleado,string departa_empleado,int id_departa)
+        public void add(Complain complain, User user)
         {
             string query;
 
@@ -167,8 +74,56 @@ namespace Business.Services
                 connection.BeginTransaction();
 
 
+                //TODO
+                query = "";
+                connection.Execute(query);
+                connection.CommitTransaction();
+            }
+            catch (Exception ex)
+            {
+                connection.RollBackTransaction();
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
 
-                query = "CALL ComplainInsert('"+descripcion +"'" + ",'"+estado.ToString()+ "'" + ",'"+id_persona+"'"+",'"+id_usuario+"'"+",'"+empleado+"'"+",'"+departa_empleado+"','"+id_departa+"')";
+        public void delete(string complainId)
+        {
+            string query;
+
+            try
+            {
+                connection.Open();
+                connection.BeginTransaction();
+                //todo 
+                query = "";
+                connection.Execute(query);
+                connection.CommitTransaction();
+            }
+            catch (Exception ex)
+            {
+                connection.RollBackTransaction();
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public void update(Complain complain)
+        {
+            string query;
+
+            try
+            {
+                connection.Open();
+                connection.BeginTransaction();
+                //TODO
+                query = "";
 
                 connection.Execute(query);
                 connection.CommitTransaction();
@@ -184,12 +139,10 @@ namespace Business.Services
             }
         }
 
+        //todo 
+            //search
 
-
-
-
-
-
+        #endregion
 
 
 

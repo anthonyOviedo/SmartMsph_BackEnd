@@ -17,8 +17,8 @@ namespace ControlClaro.Controllers
     public class NewController : ApiController
     {
         [HttpPost]
-        [Route("api/New/agregarNoticia/{Noticia}")]
-        public HttpResponseMessage PostFile(News Noticia)
+        [Route("api/news/add/{Noticia}")]
+        public HttpResponseMessage add(News Noticia)
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             ResponseConfig config = VerifyAuthorization(Request.Headers);
@@ -30,7 +30,7 @@ namespace ControlClaro.Controllers
 
                 using (NewService service = new NewService())
                 {
-                    service.NewInsert(Noticia.descripcion, Noticia.fileToUpload, Noticia.titulo);
+                    service.add(Noticia.descripcion, Noticia.fileToUpload, Noticia.titulo);
                     data.result = null;
                     data.status = true;
                     data.message = "Se creo la noticia";
@@ -51,10 +51,9 @@ namespace ControlClaro.Controllers
             return response;
         }
 
-
         [HttpGet]
-        [Route("api/New/ObtenerNoticias")]
-        public HttpResponseMessage ObtenerNoticias()
+        [Route("api/news/list")]
+        public HttpResponseMessage list()
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             ResponseConfig config = VerifyAuthorization(Request.Headers);
@@ -68,7 +67,7 @@ namespace ControlClaro.Controllers
 
                 using (NewService service = new NewService())
                 {
-                    var Noticias = service.TodasLasNoticias();
+                    var Noticias = service.list();
                     data.result = new { Noticias };
                     data.status = true;
                 }
@@ -88,6 +87,13 @@ namespace ControlClaro.Controllers
             return response;
         }
 
+        // to do
+
+        //update 
+
+        //eliminar
+
+        //buscar
 
 
 

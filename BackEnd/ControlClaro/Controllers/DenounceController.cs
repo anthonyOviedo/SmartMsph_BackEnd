@@ -11,7 +11,7 @@ namespace ControlClaro.Controllers
     {
       
         [HttpGet]
-        [Route("api/Denuncias/tikets/{Department_id}/{Ticketcol}")]
+        [Route("api/denounce/tikets/{Department_id}/{Ticketcol}")]
         public HttpResponseMessage obtainTicket(int Department_id,string Ticketcol)
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
@@ -47,8 +47,8 @@ namespace ControlClaro.Controllers
         }
 
         [HttpPost]
-        [Route("api/Denuncias/NuevaDenuncia/{Denuncia}")]
-        public HttpResponseMessage SaveDenounce(Denounce Denuncia)
+        [Route("api/denounce/newDenounce/{Denuncia}")]
+        public HttpResponseMessage add(Denounce Denuncia)
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             ResponseConfig config = VerifyAuthorization(Request.Headers);
@@ -60,7 +60,7 @@ namespace ControlClaro.Controllers
 
                 using (DenounceService service = new DenounceService())
                 {
-                    service.saveDenounce(Denuncia.Description, Denuncia.state, Denuncia.Ticket_id, Denuncia.person_Id, Denuncia.User_id, Denuncia.Department_Id, Denuncia.Photo, Denuncia.Latitud.ToString(), Denuncia.Longitud.ToString());
+                    service.add(Denuncia.Description, Denuncia.state, Denuncia.Ticket_id, Denuncia.person_Id, Denuncia.User_id, Denuncia.Department_Id, Denuncia.Photo, Denuncia.Latitud.ToString(), Denuncia.Longitud.ToString());
                     data.result = null;
                     data.status = true;
                     data.message = "Se creo la Denuncia";
@@ -81,8 +81,15 @@ namespace ControlClaro.Controllers
             return response;
         }
 
+        //to do 
 
+        //delete / cancel
 
+        //update
+
+        //list
+
+        //search
 
     }
 }

@@ -50,7 +50,7 @@ namespace Business.Services
             }
         }
 
-        public void saveDenounce(string Description , string state ,int Ticket_id,int Person_id,int User_id,int Department_id,string PPhoto,string Latitud,string Longitud)
+        public void add(string Description , string state ,int Ticket_id,int Person_id,int User_id,int Department_id,string PPhoto,string Latitud,string Longitud)
         {
             string query;
 
@@ -77,10 +77,13 @@ namespace Business.Services
             }
         }
 
+        //to do 
 
+        //delete / cancel
 
+        //update
 
-
+        //list
 
 
         #region Implements Interface IDisposable

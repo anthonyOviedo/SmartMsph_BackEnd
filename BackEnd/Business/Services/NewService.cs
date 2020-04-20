@@ -16,7 +16,7 @@ namespace Business.Services
 
         }
 
-        public void NewInsert(String descripcion, string fileToUpload, string titulo)
+        public void add(String descripcion, string fileToUpload, string titulo)
         {
             string query;
 
@@ -49,7 +49,7 @@ namespace Business.Services
 
 
 
-        public List<News> TodasLasNoticias()
+        public List<News> list()
         {
             List<News> noticias = new List<News>();
             DataSet data;

@@ -184,13 +184,13 @@ namespace Business.Utilities
                 if (!VerifyToken(token, out usuario))
                     VerifyMessage("El token no es válido");
 
-                response.usuario = usuario;
+                response.user= usuario;
             }
             catch (Exception ex)
             {
                 response.isAuthenticated = false;
                 response.errorMessage = ex.Message;
-                response.usuario = null;
+                response.user = null;
             }
 
             return response;
