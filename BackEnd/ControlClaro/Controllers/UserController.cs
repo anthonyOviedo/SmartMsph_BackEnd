@@ -46,7 +46,7 @@ namespace ControlClaro.Controllers
         }
 
         [HttpDelete]
-        [Route("api/user/delete/{usuario_Id}/{emp_Id}/{producto_Id}")]
+        [Route("api/user/delete/{usuario_Id}")]
         public HttpResponseMessage delete(string usuario_Id)
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
@@ -81,7 +81,7 @@ namespace ControlClaro.Controllers
         }
 
         [HttpPost]
-        [Route("api/user/ChangePassword/{newPassword}")]
+        [Route("api/user/changePassword/{newPassword}")]
         public HttpResponseMessage ChangePassword([FromBody] User user, string newPassword)
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
