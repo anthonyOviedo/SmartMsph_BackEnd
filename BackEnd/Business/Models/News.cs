@@ -10,6 +10,7 @@ namespace Business.Models
     {
 
         #region Definition of Properties
+        public string newsId { get; set; }
         public string titulo { get; set; }
         public string descripcion { get; set; }      
         public string fileToUpload { get; set; }
@@ -18,6 +19,7 @@ namespace Business.Models
         #region Definition of Constructors
         public News()
         {
+            this.newsId = string.Empty;
             this.titulo = string.Empty;
             this.descripcion = string.Empty;
             this.fileToUpload = string.Empty;

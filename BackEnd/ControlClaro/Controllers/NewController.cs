@@ -17,8 +17,8 @@ namespace ControlClaro.Controllers
     public class NewController : ApiController
     {
         [HttpPost]
-        [Route("api/news/add/{Noticia}")]
-        public HttpResponseMessage add(News Noticia)
+        [Route("api/news/add")]
+        public HttpResponseMessage add(News news)
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             ResponseConfig config = VerifyAuthorization(Request.Headers);
@@ -28,9 +28,9 @@ namespace ControlClaro.Controllers
             {
                 VerifyMessage(config.errorMessage);
 
-                using (NewService service = new NewService())
+                using (NewsService service = new NewsService())
                 {
-                    service.add(Noticia.descripcion, Noticia.fileToUpload, Noticia.titulo);
+                    service.add(news);
                     data.result = null;
                     data.status = true;
                     data.message = "Se creo la noticia";
@@ -65,7 +65,7 @@ namespace ControlClaro.Controllers
 
 
 
-                using (NewService service = new NewService())
+                using (NewsService service = new NewsService())
                 {
                     var Noticias = service.list();
                     data.result = new { Noticias };
@@ -87,11 +87,80 @@ namespace ControlClaro.Controllers
             return response;
         }
 
-        // to do
 
-        //update 
+        [HttpPost]
+        [Route("api/news/update")]
+        public HttpResponseMessage update([FromBody] News news)
+        {
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            ResponseConfig config = VerifyAuthorization(Request.Headers);
+            RestResponse data = new RestResponse();
 
-        //eliminar
+            try
+            {
+                VerifyMessage(config.errorMessage);
+
+                using (NewsService service = new NewsService())
+                {
+                    service.update(news);
+                    data.result = null;
+                    data.status = true;
+                    data.message = "Actualizacion de Noticia";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = config.isAuthenticated ? HttpStatusCode.BadRequest : HttpStatusCode.Unauthorized;
+                data.status = false;
+                data.message = ex.Message;
+                data.error = NewError(ex, "Registro del usuario");
+            }
+            finally
+            {
+                response.Content = CreateContent(data);
+            }
+
+            return response;
+        }
+ 
+
+        [HttpDelete]
+        [Route("api/news/delete/{newsId}")]
+        public HttpResponseMessage delete(string newsId)
+        {
+
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            ResponseConfig config = VerifyAuthorization(Request.Headers);
+            RestResponse data = new RestResponse();
+
+            try
+            {
+                VerifyMessage(config.errorMessage);
+
+                using (NewsService service = new NewsService())
+                {
+                    service.delete(newsId);
+                    data.result = null;
+                    data.status = true;
+                    data.message = "La queja se eliminó correctamente";
+                }
+            }
+
+            catch (Exception ex)
+            {
+                response.StatusCode = config.isAuthenticated ? HttpStatusCode.BadRequest : HttpStatusCode.Unauthorized;
+                data.status = false;
+                data.message = ex.Message;
+                data.error = NewError(ex, "Eliminar usuario");
+            }
+            finally
+            {
+                response.Content = CreateContent(data);
+            }
+
+            return response;
+        }
+
 
         //buscar
 
