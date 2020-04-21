@@ -10,6 +10,7 @@ namespace Business.Models
     {
         #region Definition of Properties
         public int Complain_Id { get; set; }
+        //hkh
         public string Description { get; set; }
         public int state { get; set; }
         public int person_Id { get; set; }
