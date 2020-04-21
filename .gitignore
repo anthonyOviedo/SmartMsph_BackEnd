@@ -9,3 +9,10 @@
 *.dll
 !/**/*.dll
 !/**/*.suo
+/.vs
+/bin
+/Debug
+
+BackEnd/.vs/BackEnd/v16/.suo
+BackEnd/.vs/BackEnd/v16/Server/sqlite3/storage.ide-wal
+BackEnd/.vs/BackEnd/v16/.suo
