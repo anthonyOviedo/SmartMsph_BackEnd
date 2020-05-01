@@ -10,82 +10,10 @@ namespace ControlClaro.Controllers
 {
     public class ComplainController : ApiController
     {
-        #region Definition of Services
-        [HttpDelete]
-        [Route("api/complain/delete/{complainId}")]
-        public HttpResponseMessage delete(string complainId)
-        {
-            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-            ResponseConfig config = VerifyAuthorization(Request.Headers);
-            RestResponse data = new RestResponse();
 
-            try
-            {
-                VerifyMessage(config.errorMessage);
-
-                using (ComplainService service = new ComplainService())
-                {
-                    service.delete(complainId);
-                    data.result = null;
-                    data.status = true;
-                    data.message = "La queja se eliminó correctamente";
-                }
-            }
-
-            catch (Exception ex)
-            {
-                response.StatusCode = config.isAuthenticated ? HttpStatusCode.BadRequest : HttpStatusCode.Unauthorized;
-                data.status = false;
-                data.message = ex.Message;
-                data.error = NewError(ex, "Eliminar usuario");
-            }
-            finally
-            {
-                response.Content = CreateContent(data);
-            }
-
-            return response;
-        }
-
-        [HttpPost]
-        [Route("api/complain/update")]
-        public HttpResponseMessage update([FromBody] Complain complain)
-        {
-            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-            ResponseConfig config = VerifyAuthorization(Request.Headers);
-            RestResponse data = new RestResponse();
-
-            try
-            {
-                VerifyMessage(config.errorMessage);
-
-                using (ComplainService service = new ComplainService())
-                {
-                    service.update(complain);
-                    data.result = null;
-                    data.status = true;
-                    data.message = "Actualizacion de Quejas";
-                }
-            }
-            catch (Exception ex)
-            {
-                response.StatusCode = config.isAuthenticated ? HttpStatusCode.BadRequest : HttpStatusCode.Unauthorized;
-                data.status = false;
-                data.message = ex.Message;
-                data.error = NewError(ex, "Registro del usuario");
-            }
-            finally
-            {
-                response.Content = CreateContent(data);
-            }
-
-            return response;
-        }
-
-         
         [HttpGet]
-        [Route("api/complain/list")]
-        public HttpResponseMessage list()
+        [Route("api/queja/lista")]
+        public HttpResponseMessage ListaDepartamentos()
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             ResponseConfig config = VerifyAuthorization(Request.Headers);
@@ -93,10 +21,14 @@ namespace ControlClaro.Controllers
 
             try
             {
+                VerifyMessage(config.errorMessage);
+
+             
+
                 using (ComplainService service = new ComplainService())
                 {
-                    var complains = service.list();
-                    data.result = new { complains };
+                    var departamentos = service.TodosDespartamentos();
+                    data.result = new { departamentos };
                     data.status = true;
                 }
             }
@@ -105,7 +37,7 @@ namespace ControlClaro.Controllers
                 response.StatusCode = config.isAuthenticated ? HttpStatusCode.BadRequest : HttpStatusCode.Unauthorized;
                 data.status = false;
                 data.message = ex.Message;
-                data.error = NewError(ex, "Lista de Quejas");
+                data.error = NewError(ex, "Lista de Departamentos");
             }
             finally
             {
@@ -115,14 +47,54 @@ namespace ControlClaro.Controllers
             return response;
         }
 
-        [HttpPost]
-        [Route("api/complain/add")]
-        public HttpResponseMessage add(Complain complain)
+
+
+
+        [HttpGet]
+        [Route("api/Funcionario/listaFuncionarios/{depSeleccion}")]
+        public HttpResponseMessage ListaFuncionarios( string depSeleccion)
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             ResponseConfig config = VerifyAuthorization(Request.Headers);
             RestResponse data = new RestResponse();
 
+            try
+            {
+                VerifyMessage(config.errorMessage);
+
+
+
+                using (ComplainService service = new ComplainService())
+                {
+                    var funcionarios = service.TodosFuncionarios(depSeleccion);
+                    data.result = new { funcionarios };
+                    data.status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = config.isAuthenticated ? HttpStatusCode.BadRequest : HttpStatusCode.Unauthorized;
+                data.status = false;
+                data.message = ex.Message;
+                data.error = NewError(ex, "Lista de Funcionarios");
+            }
+            finally
+            {
+                response.Content = CreateContent(data);
+            }
+
+            return response;
+        }
+
+
+
+        [HttpPost]
+        [Route("api/queja/GuardarQueja/{queja}")]
+        public HttpResponseMessage PostFile(Complain queja)
+        {
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            ResponseConfig config = VerifyAuthorization(Request.Headers);
+            RestResponse data = new RestResponse();
 
             try
             {
@@ -130,7 +102,7 @@ namespace ControlClaro.Controllers
 
                 using (ComplainService service = new ComplainService())
                 {
-                    service.add(complain, config.user);
+                    service.GuardarQueja(queja.Description,queja.state, queja.person_Id, queja.User_id, queja.employee_name, queja.employee, queja.department_id,queja.fecha);
                     data.result = null;
                     data.status = true;
                     data.message = "Se creo la queja";
@@ -151,9 +123,116 @@ namespace ControlClaro.Controllers
             return response;
         }
 
-        //todo
-        //search
 
-        #endregion
+        [HttpGet]
+        [Route("api/Complain/List/{Id_User}")]
+        public HttpResponseMessage ListComplainsbyId(int Id_User)
+        {
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            ResponseConfig config = VerifyAuthorization(Request.Headers);
+            RestResponse data = new RestResponse();
+
+            try
+            {
+                VerifyMessage(config.errorMessage);
+
+
+
+                using (ComplainService service = new ComplainService())
+                {
+                    var complains = service.ListComplainsbyId(Id_User);
+                    data.result = new { complains }; 
+                    data.status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = config.isAuthenticated ? HttpStatusCode.BadRequest : HttpStatusCode.Unauthorized;
+                data.status = false;
+                data.message = ex.Message;
+                data.error = NewError(ex, "Lista de Quejas");
+            }
+            finally
+            {
+                response.Content = CreateContent(data);
+            }
+
+            return response;
+        }
+
+        [HttpPost]
+        [Route("api/complain/Update/{complain}")]
+        public HttpResponseMessage UpdateComplain(Complain complain)
+        {
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            ResponseConfig config = VerifyAuthorization(Request.Headers);
+            RestResponse data = new RestResponse();
+
+            try
+            {
+                VerifyMessage(config.errorMessage);
+
+                using (ComplainService service = new ComplainService())
+                {
+                    service.UpdateComplain(complain.Complain_Id, complain.Description,complain.employee,complain.employee_name,complain.department_id,complain.fecha);
+                    data.result = null;
+                    data.status = true;
+                    data.message = "Se actualizo la queja";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = config.isAuthenticated ? HttpStatusCode.BadRequest : HttpStatusCode.Unauthorized;
+                data.status = false;
+                data.message = ex.Message;
+                data.error = NewError(ex, "hubo un error");
+            }
+            finally
+            {
+                response.Content = CreateContent(data);
+            }
+
+            return response;
+        }
+
+
+        [HttpDelete]
+        [Route("api/complain/delete/{Complain_id}")]
+        public HttpResponseMessage DeleletComplain(int Complain_id)
+        {
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            ResponseConfig config = VerifyAuthorization(Request.Headers);
+            RestResponse data = new RestResponse();
+
+            try
+            {
+                VerifyMessage(config.errorMessage);
+
+                using (ComplainService service = new ComplainService())
+                {
+                    service.DeleteComplain(Complain_id);
+                    data.result = null;
+                    data.status = true;
+                    data.message = "Se ha eliminado la queja";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = config.isAuthenticated ? HttpStatusCode.BadRequest : HttpStatusCode.Unauthorized;
+                data.status = false;
+                data.message = ex.Message;
+                data.error = NewError(ex, "Eliminar queja");
+            }
+            finally
+            {
+                response.Content = CreateContent(data);
+            }
+
+            return response;
+        }
+
+
+
+
     }
 }

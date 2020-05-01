@@ -50,33 +50,7 @@ namespace Business.Services
             }
         }
 
-        public void add(Denounce denounce)            
-        {
-            string query;
-            try
-            {
-                connection.Open();
-                connection.BeginTransaction();
-
-
-
-                query = "CALL SaveDenounce('" + denounce.Description + "'" + ",'" + denounce.state + "'" + ",'" + denounce.Ticket_id + "'" + ",'" + denounce.person_Id+ "'" + ",'" + denounce.User_id + "'" + ",'" + denounce.Department_Id + "','"+ denounce.Photo + "','"+ denounce.Latitud + "','" + denounce.Longitud + "')";
-
-                connection.Execute(query);
-                connection.CommitTransaction();
-            }
-            catch (Exception ex)
-            {
-                connection.RollBackTransaction();
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
- 
-        public void delete(string complainId)
+        public void saveDenounce(int denounce_id,string Description , string state,int Person_id,int User_id,int Department_id,string PPhoto,string Latitud,string Longitud)
         {
             string query;
 
@@ -84,32 +58,10 @@ namespace Business.Services
             {
                 connection.Open();
                 connection.BeginTransaction();
-                //todo 
-                query = "";
-                connection.Execute(query);
-                connection.CommitTransaction();
-            }
-            catch (Exception ex)
-            {
-                connection.RollBackTransaction();
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
 
-        public void update(Denounce denounce)
-        {
-            string query;
 
-            try
-            {
-                connection.Open();
-                connection.BeginTransaction();
-                //TODO
-                query = "";
+
+                query = "CALL SaveDenounce("+ denounce_id + ",'" + Description + "'" + ",'" + state  + "','" + Person_id + "'" + ",'" + User_id + "'" + ",'" + Department_id + "','"+ PPhoto + "','"+ Latitud + "','" + Longitud + "')";
 
                 connection.Execute(query);
                 connection.CommitTransaction();
@@ -125,17 +77,18 @@ namespace Business.Services
             }
         }
 
-        public List<Complain> list()
+        public List<Denounce> ListDenouncesbyId(string user_Id)
         {
-            List<Complain> complains = new List<Complain>();
+            List<Denounce> complains = new List<Denounce>();
             DataSet data;
             string query;
 
             try
             {
                 connection.Open();
-                //todo
-                query = "";
+
+                query = "CALL Denounces_list ('" + user_Id.Trim() + "')";
+
                 data = connection.SelectData(query);
 
                 if (data == null || data.Tables.Count == 0)
@@ -143,17 +96,23 @@ namespace Business.Services
 
                 foreach (DataRow row in data.Tables[0].Rows)
                 {
-                    complains.Add(new Complain()
+                    complains.Add(new Denounce()
                     {
-                        Complain_Id = int.Parse(row["Complain_Id"].ToString()),
+                        Denounces_id = int.Parse(row["Denounces_id"].ToString()),
                         Description = row["Description"].ToString(),
-                        state = int.Parse(row["state"].ToString()),
-                        employee = int.Parse(row["employee"].ToString()),
+                        Department_Id = int.Parse(row["Department_Id"].ToString()),
+                        state = row["State"].ToString(),
+                        Photo = row["Photo"].ToString(),
+                        Longitud = row["Longitud"].ToString(),
+                        Latitud = row["Latitud"].ToString(),
+                        DepartmentName = row["DepartmentName"].ToString()
 
-                    });
+
+
+                    }) ;
                 }
 
-               // this.cantidad = long.Parse(data.Tables[1].Rows[0]["Cantidad"].ToString());
+               
 
                 return complains;
             }
@@ -167,6 +126,10 @@ namespace Business.Services
             }
         }
 
+
+
+
+
         #region Implements Interface IDisposable
         public void Dispose()
         {
@@ -175,6 +138,34 @@ namespace Business.Services
 
             connection = null;
         }
+
+
+        public void DeleteDenounce(int Denounce_id)
+        {
+            string query;
+
+            try
+            {
+                connection.Open();
+                connection.BeginTransaction();
+
+                query = "CALL DeleteDenounce" + "('" + Denounce_id + "'" + ")";
+
+                connection.Execute(query);
+                connection.CommitTransaction();
+            }
+            catch (Exception ex)
+            {
+                connection.RollBackTransaction();
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+
         #endregion
 
     }

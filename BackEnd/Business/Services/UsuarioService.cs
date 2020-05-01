@@ -7,21 +7,21 @@ using static Business.Utilities.Functions;
 
 namespace Business.Services
 {
-    public class UserService : BaseService, IDisposable
+    public class UsuarioService : BaseService, IDisposable
     {
         #region Definition of Properties
         public long cantidad { get; set; }
         #endregion
         #region Definition of Constructors
-        public UserService() : base()
+        public UsuarioService() : base()
         {
 
         }
         #endregion
         #region Definition of Public Methods
-        public User VerifyCredentials(string username, string password)
+        public Usuario VerifyCredentials(string username, string password)
         {
-            User usuario = new User();
+            Usuario usuario = new Usuario();
             DataTable table;
             string query;
 
@@ -38,8 +38,8 @@ namespace Business.Services
 
                 usuario.usuario_Id = table.Rows[0]["User_Id"].ToString();
                 usuario.nombre = table.Rows[0]["UserName"].ToString();
-                usuario.persona.persona_Id = long.Parse(table.Rows[0]["Person_id"].ToString());
-                usuario.persona.nombre= table.Rows[0]["Name"].ToString();
+                usuario.persona.persona_Id = int.Parse(table.Rows[0]["Person_id"].ToString());
+                usuario.persona.nombre = table.Rows[0]["Name"].ToString();
                 usuario.persona.apellido1 = table.Rows[0]["LastName1"].ToString();
                 usuario.persona.apellido1 = table.Rows[0]["LastName2"].ToString();
                 usuario.persona.correo = table.Rows[0]["Email"].ToString();
@@ -49,14 +49,15 @@ namespace Business.Services
                 string departamento_id = table.Rows[0]["department_id"].ToString();
                 if (departamento_id == "")
                 {
-                    usuario.departamento.departamento_Id = 0;
+                    usuario.departamento.department_Id = 0;
                 }
-                else {
-                    usuario.departamento.departamento_Id = int.Parse(departamento_id);
+                else
+                {
+                    usuario.departamento.department_Id = int.Parse(departamento_id);
                 }
 
-                
-                usuario.departamento.nombre = table.Rows[0]["DepartmentName"].ToString();
+
+                usuario.departamento.name = table.Rows[0]["DepartmentName"].ToString();
 
 
                 return usuario;
@@ -71,17 +72,21 @@ namespace Business.Services
             }
         }
 
-        public List<User> list()
+
+
+
+
+        public List<Usuario> Lista(int pais_Id, int emp_Id, string criterio)
         {
-            List<User> usuarios = new List<User>();
+            List<Usuario> usuarios = new List<Usuario>();
             DataSet data;
             string query;
 
             try
             {
                 connection.Open();
-                //revisar query con lainer...
-                query = "select * from user;";
+
+                query = "exec Usuario_Lista " + pais_Id.ToString() + "," + emp_Id.ToString() + ",'" + criterio.Trim() + "'";
 
                 data = connection.SelectData(query);
 
@@ -90,16 +95,15 @@ namespace Business.Services
 
                 foreach (DataRow row in data.Tables[0].Rows)
                 {
-                    usuarios.Add(new User()
+                    usuarios.Add(new Usuario()
                     {
-                        usuario_Id = row["User_Id"].ToString(),
-                        nombre = row["UserName"].ToString(),
-                        rol = int.Parse(row["Role_id"].ToString()),
-                        persona = new Persona() { persona_Id = int.Parse(row["Person_Id"].ToString()) },
-                        departamento = new Department() { departamento_Id = int.Parse(row["department_id"].ToString()) }
-                    });
+                        usuario_Id = row["Usuario_Id"].ToString(),
+                        nombre = row["Nombre"].ToString(),
 
+                    });
                 }
+
+                this.cantidad = long.Parse(data.Tables[1].Rows[0]["Cantidad"].ToString());
 
                 return usuarios;
             }
@@ -113,16 +117,20 @@ namespace Business.Services
             }
         }
 
-        public void add(User usuario)
+        public void Registrarse(Usuario user)
         {
             string query;
+
             try
             {
                 connection.Open();
                 connection.BeginTransaction();
 
-                query = "CALL addUser(" + Int32.Parse(usuario.usuario_Id) + ",'" + usuario.nombre
-                    + "','" + usuario.password + "'," + usuario.persona.persona_Id + "," + usuario.rol + "," + usuario.departamento.departamento_Id + ");";
+                query = "CALL UsuarioRegistro (" + "" + user.persona.persona_Id.ToString() + ",'" + user.persona.nombre.Trim() + "','" +
+                     user.persona.apellido1.Trim() + "','" + user.persona.apellido2.Trim() + "','" + user.persona.correo.Trim() +
+                     "','" + user.persona.telefono.Trim() + "'," + user.usuario_Id.ToString() + ",'" + user.nombre.Trim() + "','" +
+                      user.password.Trim() + "'," + user.rol.ToString() + "," + user.departamento.department_Id + ")";
+
 
                 connection.Execute(query);
                 connection.CommitTransaction();
@@ -138,7 +146,7 @@ namespace Business.Services
             }
         }
 
-        public void signUp(User user)
+        public void Eliminar(string usuario_Id)
         {
             string query;
 
@@ -146,12 +154,8 @@ namespace Business.Services
             {
                 connection.Open();
                 connection.BeginTransaction();
-               // user.persona.persona_Id = long.Parse(user.persona.strId.Trim());
 
-                query = "CALL UsuarioRegistro (" + ""+ user.persona.strId.ToString() + ",'" + user.persona.nombre.Trim() + "','" +  
-                            user.persona.apellido1.Trim() + "','" + user.persona.apellido2.Trim() + "','"  + user.persona.correo.Trim() +
-                            "','" + user.persona.telefono.Trim() + "'," + user.usuario_Id.ToString() + ",'" + user.nombre.Trim() + "','" + 
-                             user.password.Trim() + "'," + user.rol.ToString() + ")";
+                query = "exec Usuario_Eliminar '" + usuario_Id + "'";
 
                 connection.Execute(query);
                 connection.CommitTransaction();
@@ -167,30 +171,6 @@ namespace Business.Services
             }
         }
 
-        public void delete(string usuario_Id)
-        {
-            string query;
-            try
-            {
-                connection.Open();
-                connection.BeginTransaction();
-                //CALL insert_studentinfo(125,'Raman','Bangalore','Computers')//
-                query = "CALL deleteUser(" + Int32.Parse(usuario_Id) + ")";
-
-                connection.Execute(query);
-                connection.CommitTransaction();
-            }
-            catch (Exception ex)
-            {
-                connection.RollBackTransaction();
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-        
         public void ChangePassword(string usuario_Id, string password, string newPassword)
         {
             string query;
@@ -217,16 +197,106 @@ namespace Business.Services
             }
         }
 
-        public void update(User usuario)
+
+
+        public List<Role> ListRole()
+        {
+            List<Role> roles = new List<Role>();
+            DataSet data;
+            string query;
+
+            try
+            {
+                connection.Open();
+
+                query = "CALL ObtainRole()";
+
+                data = connection.SelectData(query);
+
+                if (data == null || data.Tables.Count == 0)
+                    VerifyMessage("Ocurrió un error durante la transacción por favor inténtelo de nuevo");
+
+                foreach (DataRow row in data.Tables[0].Rows)
+                {
+                    roles.Add(new Role()
+                    {
+                        Role_id = int.Parse(row["Role_id"].ToString()),
+                        Name = row["Name"].ToString(),
+
+                    });
+                }
+
+                return roles;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+
+        public List<Usuario> UsersWithAll()
+        {
+            List<Usuario> usuarios = new List<Usuario>();
+            Usuario usuario = new Usuario();
+            DataSet data;
+            string query;
+
+            try
+            {
+                connection.Open();
+
+                query = "CALL UsersWithAll()";
+
+                data = connection.SelectData(query);
+
+                if (data == null || data.Tables.Count == 0)
+                    VerifyMessage("Ocurrió un error durante la transacción por favor inténtelo de nuevo");
+
+                foreach (DataRow row in data.Tables[0].Rows)
+                {
+                    usuario = new Usuario();
+                    usuario.usuario_Id = row["User_Id"].ToString();
+                    usuario.nombre = row["UserName"].ToString();
+                    usuario.persona.persona_Id = int.Parse(row["Person_id"].ToString());
+                    usuario.persona.nombre = row["Name"].ToString();
+                    usuario.persona.apellido1 = row["LastName1"].ToString();
+                    usuario.persona.apellido1 = row["LastName2"].ToString();
+                    usuario.persona.correo = row["Email"].ToString();
+                    usuario.persona.telefono = row["phoneNumber"].ToString();
+                    usuario.departamento.name = row["DepartmentName"].ToString();
+                    usuarios.Add(usuario);
+                }
+
+                return usuarios;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+
+
+
+        public void DeleteUser(int UserId)
         {
             string query;
+
             try
             {
                 connection.Open();
                 connection.BeginTransaction();
 
-                query = "CALL updateUser(" + Int32.Parse(usuario.usuario_Id) + ",'" + usuario.nombre
-                    + "'," + usuario.rol + "," + usuario.departamento.departamento_Id + ");";
+                query = "CALL DeleteUser" + "('" + UserId + "'" + ")";
 
                 connection.Execute(query);
                 connection.CommitTransaction();
@@ -242,13 +312,18 @@ namespace Business.Services
             }
         }
 
-        //todo 
-            //search
+
+
+
+
+
+
+
         #endregion
         #region Implements Interface IDisposable
         public void Dispose()
         {
-            if (connection != null )
+            if (connection != null)
                 connection.Close();
 
             connection = null;

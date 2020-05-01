@@ -9,9 +9,9 @@ namespace ControlClaro.Controllers
 {
     public class DenounceController : ApiController
     {
-        #region Definition of Services
+      
         [HttpGet]
-        [Route("api/denounce/tikets/{Department_id}/{Ticketcol}")]
+        [Route("api/Denuncias/tikets/{Department_id}/{Ticketcol}")]
         public HttpResponseMessage obtainTicket(int Department_id,string Ticketcol)
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
@@ -47,8 +47,8 @@ namespace ControlClaro.Controllers
         }
 
         [HttpPost]
-        [Route("api/denounce/add")]
-        public HttpResponseMessage add(Denounce denounce)
+        [Route("api/Denuncias/NuevaDenuncia/{Denuncia}")]
+        public HttpResponseMessage SaveDenounce(Denounce Denuncia)
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             ResponseConfig config = VerifyAuthorization(Request.Headers);
@@ -60,10 +60,10 @@ namespace ControlClaro.Controllers
 
                 using (DenounceService service = new DenounceService())
                 {
-                    service.add(denounce);
+                    service.saveDenounce(Denuncia.Denounces_id,Denuncia.Description, Denuncia.state, Denuncia.person_Id, Denuncia.User_id, Denuncia.Department_Id, Denuncia.Photo, Denuncia.Latitud.ToString(), Denuncia.Longitud.ToString());
                     data.result = null;
                     data.status = true;
-                    data.message = "Se creo la Denuncia";
+                    data.message = Denuncia.Denounces_id == 0 ? "Se creó la Denuncia": "Se actualizó la Denuncia";
                 }
             }
             catch (Exception ex)
@@ -82,9 +82,10 @@ namespace ControlClaro.Controllers
         }
 
 
+
         [HttpDelete]
-        [Route("api/denounce/delete/{denounceId}")]
-        public HttpResponseMessage delete(string denounceId)
+        [Route("api/denounce/delete/{denounce_id}")]
+        public HttpResponseMessage DeleletComplain(int denounce_id)
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             ResponseConfig config = VerifyAuthorization(Request.Headers);
@@ -96,19 +97,18 @@ namespace ControlClaro.Controllers
 
                 using (DenounceService service = new DenounceService())
                 {
-                    service.delete(denounceId);
+                    service.DeleteDenounce(denounce_id);
                     data.result = null;
                     data.status = true;
-                    data.message = "La queja se eliminó correctamente";
+                    data.message = "Se ha eliminado la denuncia";
                 }
             }
-
             catch (Exception ex)
             {
                 response.StatusCode = config.isAuthenticated ? HttpStatusCode.BadRequest : HttpStatusCode.Unauthorized;
                 data.status = false;
                 data.message = ex.Message;
-                data.error = NewError(ex, "Eliminar usuario");
+                data.error = NewError(ex, "Eliminar queja");
             }
             finally
             {
@@ -119,45 +119,12 @@ namespace ControlClaro.Controllers
         }
 
 
-        [HttpPost]
-        [Route("api/denounce/update")]
-        public HttpResponseMessage update([FromBody] Denounce denounce)
-        {
-            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-            ResponseConfig config = VerifyAuthorization(Request.Headers);
-            RestResponse data = new RestResponse();
 
-            try
-            {
-                VerifyMessage(config.errorMessage);
-
-                using (DenounceService service = new DenounceService())
-                {
-                    service.update(denounce);
-                    data.result = null;
-                    data.status = true;
-                    data.message = "Actualizacion de Quejas";
-                }
-            }
-            catch (Exception ex)
-            {
-                response.StatusCode = config.isAuthenticated ? HttpStatusCode.BadRequest : HttpStatusCode.Unauthorized;
-                data.status = false;
-                data.message = ex.Message;
-                data.error = NewError(ex, "Registro del usuario");
-            }
-            finally
-            {
-                response.Content = CreateContent(data);
-            }
-
-            return response;
-        }
 
 
         [HttpGet]
-        [Route("api/denounce/list")]
-        public HttpResponseMessage list()
+        [Route("api/Denuncias/List/{Id_User}")]
+        public HttpResponseMessage ListDenouncesbyId(int Id_User)
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             ResponseConfig config = VerifyAuthorization(Request.Headers);
@@ -165,10 +132,14 @@ namespace ControlClaro.Controllers
 
             try
             {
+                VerifyMessage(config.errorMessage);
+
+
+
                 using (DenounceService service = new DenounceService())
                 {
-                    var complains = service.list();
-                    data.result = new { complains };
+                    
+                    data.result = service.ListDenouncesbyId(Id_User.ToString());
                     data.status = true;
                 }
             }
@@ -187,8 +158,12 @@ namespace ControlClaro.Controllers
             return response;
         }
 
-        //todo
-        //search
-        #endregion
+
+
     }
+
+
+
+
+
 }

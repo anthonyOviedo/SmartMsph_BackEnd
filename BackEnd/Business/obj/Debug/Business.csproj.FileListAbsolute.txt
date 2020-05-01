@@ -84,25 +84,47 @@ C:\Users\Dell\Desktop\SMARTMSPH final\DEV-SMART-MSPH\proyecto\BackEnd\Business\o
 C:\Users\Dell\Desktop\SMARTMSPH final\DEV-SMART-MSPH\proyecto\BackEnd\Business\obj\Debug\Business.csproj.CopyComplete
 C:\Users\Dell\Desktop\SMARTMSPH final\DEV-SMART-MSPH\proyecto\BackEnd\Business\obj\Debug\Business.dll
 C:\Users\Dell\Desktop\SMARTMSPH final\DEV-SMART-MSPH\proyecto\BackEnd\Business\obj\Debug\Business.pdb
-C:\Users\anton\Desktop\backend\SmartMsph_BackEnd\BackEnd\Business\bin\Debug\Business.dll.config
-C:\Users\anton\Desktop\backend\SmartMsph_BackEnd\BackEnd\Business\bin\Debug\Business.dll
-C:\Users\anton\Desktop\backend\SmartMsph_BackEnd\BackEnd\Business\bin\Debug\Business.pdb
-C:\Users\anton\Desktop\backend\SmartMsph_BackEnd\BackEnd\Business\bin\Debug\Connection.dll
-C:\Users\anton\Desktop\backend\SmartMsph_BackEnd\BackEnd\Business\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.dll
-C:\Users\anton\Desktop\backend\SmartMsph_BackEnd\BackEnd\Business\bin\Debug\Microsoft.IdentityModel.Logging.dll
-C:\Users\anton\Desktop\backend\SmartMsph_BackEnd\BackEnd\Business\bin\Debug\Microsoft.IdentityModel.Tokens.dll
-C:\Users\anton\Desktop\backend\SmartMsph_BackEnd\BackEnd\Business\bin\Debug\Newtonsoft.Json.dll
-C:\Users\anton\Desktop\backend\SmartMsph_BackEnd\BackEnd\Business\bin\Debug\System.IdentityModel.Tokens.Jwt.dll
-C:\Users\anton\Desktop\backend\SmartMsph_BackEnd\BackEnd\Business\bin\Debug\MySql.Data.dll
-C:\Users\anton\Desktop\backend\SmartMsph_BackEnd\BackEnd\Business\bin\Debug\Google.Protobuf.dll
-C:\Users\anton\Desktop\backend\SmartMsph_BackEnd\BackEnd\Business\bin\Debug\Connection.pdb
-C:\Users\anton\Desktop\backend\SmartMsph_BackEnd\BackEnd\Business\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.xml
-C:\Users\anton\Desktop\backend\SmartMsph_BackEnd\BackEnd\Business\bin\Debug\Microsoft.IdentityModel.Logging.xml
-C:\Users\anton\Desktop\backend\SmartMsph_BackEnd\BackEnd\Business\bin\Debug\Microsoft.IdentityModel.Tokens.xml
-C:\Users\anton\Desktop\backend\SmartMsph_BackEnd\BackEnd\Business\bin\Debug\Newtonsoft.Json.xml
-C:\Users\anton\Desktop\backend\SmartMsph_BackEnd\BackEnd\Business\bin\Debug\System.IdentityModel.Tokens.Jwt.xml
-C:\Users\anton\Desktop\backend\SmartMsph_BackEnd\BackEnd\Business\bin\Debug\MySql.Data.xml
-C:\Users\anton\Desktop\backend\SmartMsph_BackEnd\BackEnd\Business\obj\Debug\Business.csprojAssemblyReference.cache
-C:\Users\anton\Desktop\backend\SmartMsph_BackEnd\BackEnd\Business\obj\Debug\Business.csproj.CopyComplete
-C:\Users\anton\Desktop\backend\SmartMsph_BackEnd\BackEnd\Business\obj\Debug\Business.dll
-C:\Users\anton\Desktop\backend\SmartMsph_BackEnd\BackEnd\Business\obj\Debug\Business.pdb
+C:\Users\leine\Desktop\sprint4\sprint 4 si funciona\BackEnd\Business\bin\Debug\Business.dll.config
+C:\Users\leine\Desktop\sprint4\sprint 4 si funciona\BackEnd\Business\bin\Debug\Business.dll
+C:\Users\leine\Desktop\sprint4\sprint 4 si funciona\BackEnd\Business\bin\Debug\Business.pdb
+C:\Users\leine\Desktop\sprint4\sprint 4 si funciona\BackEnd\Business\bin\Debug\Connection.dll
+C:\Users\leine\Desktop\sprint4\sprint 4 si funciona\BackEnd\Business\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\leine\Desktop\sprint4\sprint 4 si funciona\BackEnd\Business\bin\Debug\Microsoft.IdentityModel.Logging.dll
+C:\Users\leine\Desktop\sprint4\sprint 4 si funciona\BackEnd\Business\bin\Debug\Microsoft.IdentityModel.Tokens.dll
+C:\Users\leine\Desktop\sprint4\sprint 4 si funciona\BackEnd\Business\bin\Debug\Newtonsoft.Json.dll
+C:\Users\leine\Desktop\sprint4\sprint 4 si funciona\BackEnd\Business\bin\Debug\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\leine\Desktop\sprint4\sprint 4 si funciona\BackEnd\Business\bin\Debug\MySql.Data.dll
+C:\Users\leine\Desktop\sprint4\sprint 4 si funciona\BackEnd\Business\bin\Debug\Google.Protobuf.dll
+C:\Users\leine\Desktop\sprint4\sprint 4 si funciona\BackEnd\Business\bin\Debug\Connection.pdb
+C:\Users\leine\Desktop\sprint4\sprint 4 si funciona\BackEnd\Business\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.xml
+C:\Users\leine\Desktop\sprint4\sprint 4 si funciona\BackEnd\Business\bin\Debug\Microsoft.IdentityModel.Logging.xml
+C:\Users\leine\Desktop\sprint4\sprint 4 si funciona\BackEnd\Business\bin\Debug\Microsoft.IdentityModel.Tokens.xml
+C:\Users\leine\Desktop\sprint4\sprint 4 si funciona\BackEnd\Business\bin\Debug\Newtonsoft.Json.xml
+C:\Users\leine\Desktop\sprint4\sprint 4 si funciona\BackEnd\Business\bin\Debug\System.IdentityModel.Tokens.Jwt.xml
+C:\Users\leine\Desktop\sprint4\sprint 4 si funciona\BackEnd\Business\bin\Debug\MySql.Data.xml
+C:\Users\leine\Desktop\sprint4\sprint 4 si funciona\BackEnd\Business\obj\Debug\Business.csprojAssemblyReference.cache
+C:\Users\leine\Desktop\sprint4\sprint 4 si funciona\BackEnd\Business\obj\Debug\Business.csproj.CopyComplete
+C:\Users\leine\Desktop\sprint4\sprint 4 si funciona\BackEnd\Business\obj\Debug\Business.dll
+C:\Users\leine\Desktop\sprint4\sprint 4 si funciona\BackEnd\Business\obj\Debug\Business.pdb
+C:\Users\Dell\Desktop\proyecto para  hoy\BackEnd\Business\bin\Debug\Business.dll.config
+C:\Users\Dell\Desktop\proyecto para  hoy\BackEnd\Business\bin\Debug\Business.dll
+C:\Users\Dell\Desktop\proyecto para  hoy\BackEnd\Business\bin\Debug\Business.pdb
+C:\Users\Dell\Desktop\proyecto para  hoy\BackEnd\Business\bin\Debug\Connection.dll
+C:\Users\Dell\Desktop\proyecto para  hoy\BackEnd\Business\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Dell\Desktop\proyecto para  hoy\BackEnd\Business\bin\Debug\Microsoft.IdentityModel.Logging.dll
+C:\Users\Dell\Desktop\proyecto para  hoy\BackEnd\Business\bin\Debug\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Dell\Desktop\proyecto para  hoy\BackEnd\Business\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Dell\Desktop\proyecto para  hoy\BackEnd\Business\bin\Debug\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Dell\Desktop\proyecto para  hoy\BackEnd\Business\bin\Debug\MySql.Data.dll
+C:\Users\Dell\Desktop\proyecto para  hoy\BackEnd\Business\bin\Debug\Google.Protobuf.dll
+C:\Users\Dell\Desktop\proyecto para  hoy\BackEnd\Business\bin\Debug\Connection.pdb
+C:\Users\Dell\Desktop\proyecto para  hoy\BackEnd\Business\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.xml
+C:\Users\Dell\Desktop\proyecto para  hoy\BackEnd\Business\bin\Debug\Microsoft.IdentityModel.Logging.xml
+C:\Users\Dell\Desktop\proyecto para  hoy\BackEnd\Business\bin\Debug\Microsoft.IdentityModel.Tokens.xml
+C:\Users\Dell\Desktop\proyecto para  hoy\BackEnd\Business\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Dell\Desktop\proyecto para  hoy\BackEnd\Business\bin\Debug\System.IdentityModel.Tokens.Jwt.xml
+C:\Users\Dell\Desktop\proyecto para  hoy\BackEnd\Business\bin\Debug\MySql.Data.xml
+C:\Users\Dell\Desktop\proyecto para  hoy\BackEnd\Business\obj\Debug\Business.csprojAssemblyReference.cache
+C:\Users\Dell\Desktop\proyecto para  hoy\BackEnd\Business\obj\Debug\Business.csproj.CopyComplete
+C:\Users\Dell\Desktop\proyecto para  hoy\BackEnd\Business\obj\Debug\Business.dll
+C:\Users\Dell\Desktop\proyecto para  hoy\BackEnd\Business\obj\Debug\Business.pdb

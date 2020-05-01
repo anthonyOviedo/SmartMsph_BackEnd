@@ -5,14 +5,14 @@
         #region Definition of Properties
         public bool isAuthenticated { get; set; }
         public string errorMessage { get; set; }
-        public User user { get; set; }
+        public Usuario usuario { get; set; }
         #endregion
         #region Definition of Constructors
         public ResponseConfig()
         {
             this.isAuthenticated = true;
             this.errorMessage = string.Empty;
-            this.user= new User();
+            this.usuario = new Usuario();
         }
         #endregion
     }

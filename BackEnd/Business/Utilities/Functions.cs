@@ -165,7 +165,7 @@ namespace Business.Utilities
         public static ResponseConfig VerifyAuthorization(HttpRequestHeaders headers)
         {
             ResponseConfig response = new ResponseConfig();
-            User usuario;
+            Usuario usuario;
 
             try
             {
@@ -184,19 +184,19 @@ namespace Business.Utilities
                 if (!VerifyToken(token, out usuario))
                     VerifyMessage("El token no es válido");
 
-                response.user= usuario;
+                response.usuario = usuario;
             }
             catch (Exception ex)
             {
                 response.isAuthenticated = false;
                 response.errorMessage = ex.Message;
-                response.user = null;
+                response.usuario = null;
             }
 
             return response;
         }
 
-        public static string GenerateToken(User usuario)
+        public static string GenerateToken(Usuario usuario)
         {
             string token;
 
@@ -230,7 +230,7 @@ namespace Business.Utilities
             }
         }
 
-        public static bool VerifyToken(string token, out User usuario)
+        public static bool VerifyToken(string token, out Usuario usuario)
         {
             TokenValidationParameters tokenValidationParameters = GetTokenValidationParameters();
             JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
@@ -245,7 +245,7 @@ namespace Business.Utilities
 
                 jwtToken = (JwtSecurityToken)validatedToken;
 
-                usuario = new User();
+                usuario = new Usuario();
                 usuario.usuario_Id = jwtToken.Payload["usuario_Id"].ToString();
                 usuario.nombre = jwtToken.Payload["nombre"].ToString();
 

@@ -8,15 +8,15 @@ using static Business.Utilities.Functions;
 namespace Business.Services
 {
 
-    public class NewsService : BaseService, IDisposable
+    public class NewService : BaseService, IDisposable
     {
 
-        public NewsService() : base()
+        public NewService() : base()
         {
 
         }
 
-        public void add(News news)
+        public void NewInsert(int new_id,String descripcion, string fileToUpload, string titulo)
         {
             string query;
 
@@ -24,13 +24,13 @@ namespace Business.Services
             {
                 connection.Open();
                 connection.BeginTransaction();
-                byte[] newBytes = Convert.FromBase64String(news.fileToUpload);
+          //      byte[] newBytes = Convert.FromBase64String(fileToUpload);
                 
 
 
 
-                query = "CALL NewInsert('" + news.descripcion + "'" +
-                        ",'" + newBytes + "','" + news.titulo + "')";
+                query = "CALL NewInsert("+ new_id + ",'" + descripcion + "'" +
+                        ",'" + fileToUpload + "','" + titulo + "')";
 
                 connection.Execute(query);
                 connection.CommitTransaction();
@@ -46,7 +46,10 @@ namespace Business.Services
             }
         }
 
-        public List<News> list()
+
+
+
+        public List<News> TodasLasNoticias()
         {
             List<News> noticias = new List<News>();
             DataSet data;
@@ -65,20 +68,24 @@ namespace Business.Services
 
                 foreach (DataRow row in data.Tables[0].Rows)
                 {
-                    //falta el id de la noticia
+
                     News noticia = new News();
+                    
                     string titulo = row["titulo"].ToString();
-                    string descripcion = row["descri"].ToString();
-                    var bitesPhoto = (row["photo"]);
-                    string Photo =Convert.ToBase64String((byte[])bitesPhoto);
+                 string descripcion = row["descri"].ToString();
+                    string Photo = (row["photo"]).ToString();
+                    int noticia_id = int.Parse(row["News_Id"].ToString());
+                    //  var bitesPhoto = (row["photo"]);
+                    //  string Photo = Convert.ToBase64String((byte[])bitesPhoto);
+                    noticia.new_id = noticia_id;
                     noticia.titulo = titulo;
                     noticia.descripcion = descripcion;
                     noticia.fileToUpload = Photo;
                     noticias.Add(noticia); 
 
 
-                }
-                Console.WriteLine(noticias[0].fileToUpload);
+                        }
+            
 
 
                 return noticias;
@@ -93,7 +100,8 @@ namespace Business.Services
             }
         }
 
-        public void delete(string newsId)
+
+        public void Delete(int news_id)
         {
             string query;
 
@@ -102,7 +110,8 @@ namespace Business.Services
                 connection.Open();
                 connection.BeginTransaction();
 
-                query = "";
+                query = "CALL DeleteNews" + "('" + news_id + "'" + ")";
+
                 connection.Execute(query);
                 connection.CommitTransaction();
             }
@@ -117,33 +126,6 @@ namespace Business.Services
             }
         }
 
-        public void update(News news)
-        {
-            string query;
-
-            try
-            {
-                connection.Open();
-                connection.BeginTransaction();
-
-                query = "";
-
-                connection.Execute(query);
-                connection.CommitTransaction();
-            }
-            catch (Exception ex)
-            {
-                connection.RollBackTransaction();
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-        
-        //todo
-            //SEARCH
 
         #region Implements Interface IDisposable
         public void Dispose()

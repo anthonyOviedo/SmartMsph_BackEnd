@@ -16,10 +16,11 @@ namespace Business.Models
         public int User_id { get; set; }
         public int Ticket_id { get; set; }
         public int Department_Id { get; set; }
+        public string DepartmentName { get; set; }
         public string Photo { get; set; }
 
-        public int Latitud { get; set; }
-        public int Longitud { get; set; }
+        public string Latitud { get; set; }
+        public string Longitud { get; set; }
 
 
         #endregion
@@ -30,8 +31,8 @@ namespace Business.Models
             this.Description = string.Empty;
             this.state = string.Empty;
             this.person_Id = 0;
-            this.Latitud = 0;
-            this.Longitud = 0;
+            this.Latitud = string.Empty;
+            this.Longitud = string.Empty;
             this.Department_Id = 0;
             this.User_id = 0;
             this.Photo = string.Empty;

@@ -8,13 +8,12 @@ using static Business.Utilities.Functions;
 
 namespace ControlClaro.Controllers
 {
-    public class DepartmentController : ApiController
+    public class DepartmentController:ApiController
     {
-        #region Definition of Services
 
-        [HttpGet]   
-        [Route("api/department/list")]
-        public HttpResponseMessage list()
+        [HttpGet]
+        [Route("api/Funcionario/allfuncionary/")]
+        public HttpResponseMessage ListaFuncionarios( )
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             ResponseConfig config = VerifyAuthorization(Request.Headers);
@@ -22,10 +21,14 @@ namespace ControlClaro.Controllers
 
             try
             {
-                using (DepartmentService service = new DepartmentService())
+                VerifyMessage(config.errorMessage);
+
+
+
+                using (ComplainService service = new ComplainService())
                 {
-                    var departments = service.list();
-                    data.result = new { departments };
+                    var funcionarios = service.allfuncionary();
+                    data.result = new { funcionarios };
                     data.status = true;
                 }
             }
@@ -34,7 +37,7 @@ namespace ControlClaro.Controllers
                 response.StatusCode = config.isAuthenticated ? HttpStatusCode.BadRequest : HttpStatusCode.Unauthorized;
                 data.status = false;
                 data.message = ex.Message;
-                data.error = NewError(ex, "Lista de departamentos");
+                data.error = NewError(ex, "Lista de Funcionarios");
             }
             finally
             {
@@ -45,8 +48,8 @@ namespace ControlClaro.Controllers
         }
 
         [HttpPost]
-        [Route("api/department/add")]
-        public HttpResponseMessage add([FromBody] Department department)
+        [Route("api/department/guardar/")]
+        public HttpResponseMessage SaveDenounce([FromBody] Department Department)
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             ResponseConfig config = VerifyAuthorization(Request.Headers);
@@ -56,12 +59,12 @@ namespace ControlClaro.Controllers
             {
                 VerifyMessage(config.errorMessage);
 
-                using ( DepartmentService service = new DepartmentService())
+                using (DepartmentService service = new DepartmentService())
                 {
-                    service.add(department);
+                    service.saveDepartment(Department);
                     data.result = null;
                     data.status = true;
-                    data.message = "Department creado";
+                    data.message = Department.department_Id == -1 ? "Se creó el departamento" : "Se actualizó el departamento";
                 }
             }
             catch (Exception ex)
@@ -69,7 +72,7 @@ namespace ControlClaro.Controllers
                 response.StatusCode = config.isAuthenticated ? HttpStatusCode.BadRequest : HttpStatusCode.Unauthorized;
                 data.status = false;
                 data.message = ex.Message;
-                data.error = NewError(ex, "Registro de Departamentos");
+                data.error = NewError(ex, "Hubo un error");
             }
             finally
             {
@@ -78,11 +81,12 @@ namespace ControlClaro.Controllers
 
             return response;
         }
+
 
 
         [HttpDelete]
-        [Route("api/department/delete/{departmentId}")]
-        public HttpResponseMessage delete(string departmentId)
+        [Route("api/department/delete/{department_id}")]
+        public HttpResponseMessage DeleletComplain(int department_id)
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             ResponseConfig config = VerifyAuthorization(Request.Headers);
@@ -94,19 +98,18 @@ namespace ControlClaro.Controllers
 
                 using (DepartmentService service = new DepartmentService())
                 {
-                    service.delete(departmentId);
+                    service.DeleteDepartment(department_id);
                     data.result = null;
                     data.status = true;
-                    data.message = "El Department seleccionado se eliminó correctamente";
+                    data.message = "Se ha eliminado el departamento";
                 }
             }
-
             catch (Exception ex)
             {
                 response.StatusCode = config.isAuthenticated ? HttpStatusCode.BadRequest : HttpStatusCode.Unauthorized;
                 data.status = false;
                 data.message = ex.Message;
-                data.error = NewError(ex, "Eliminar usuario");
+                data.error = NewError(ex, "Eliminar departamento");
             }
             finally
             {
@@ -117,46 +120,12 @@ namespace ControlClaro.Controllers
         }
 
 
-        [HttpPost]
-        [Route("api/department/update")]
-        public HttpResponseMessage update([FromBody] Department Department)
-        {
-            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-            ResponseConfig config = VerifyAuthorization(Request.Headers);
-            RestResponse data = new RestResponse();
-
-            try
-            {
-                VerifyMessage(config.errorMessage);
-
-                using (DepartmentService service = new DepartmentService())
-                {
-                    service.update(Department);
-                    data.result = null;
-                    data.status = true;
-                    data.message = "El Registro del usuario se completó correctamente";
-                }
-            }
-            catch (Exception ex)
-            {
-                response.StatusCode = config.isAuthenticated ? HttpStatusCode.BadRequest : HttpStatusCode.Unauthorized;
-                data.status = false;
-                data.message = ex.Message;
-                data.error = NewError(ex, "Registro del usuario");
-            }
-            finally
-            {
-                response.Content = CreateContent(data);
-            }
-
-            return response;
-        }
-
-        //to do 
-
-        //search
 
 
-        #endregion
+
+
+
+
+
     }
 }

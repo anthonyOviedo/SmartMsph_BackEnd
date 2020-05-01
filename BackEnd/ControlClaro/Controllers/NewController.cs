@@ -17,8 +17,8 @@ namespace ControlClaro.Controllers
     public class NewController : ApiController
     {
         [HttpPost]
-        [Route("api/news/add")]
-        public HttpResponseMessage add(News news)
+        [Route("api/New/agregarNoticia/{Noticia}")]
+        public HttpResponseMessage PostFile(News Noticia)
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             ResponseConfig config = VerifyAuthorization(Request.Headers);
@@ -28,12 +28,12 @@ namespace ControlClaro.Controllers
             {
                 VerifyMessage(config.errorMessage);
 
-                using (NewsService service = new NewsService())
+                using (NewService service = new NewService())
                 {
-                    service.add(news);
+                    service.NewInsert(Noticia.new_id,Noticia.descripcion, Noticia.fileToUpload, Noticia.titulo);
                     data.result = null;
                     data.status = true;
-                    data.message = "Se creo la noticia";
+                    data.message = Noticia.new_id == 0 ? "Se creo la noticia":"Se actualizó corretamenta la noticia";
                 }
             }
             catch (Exception ex)
@@ -51,9 +51,10 @@ namespace ControlClaro.Controllers
             return response;
         }
 
+
         [HttpGet]
-        [Route("api/news/list")]
-        public HttpResponseMessage list()
+        [Route("api/New/ObtenerNoticias")]
+        public HttpResponseMessage ObtenerNoticias()
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             ResponseConfig config = VerifyAuthorization(Request.Headers);
@@ -65,9 +66,9 @@ namespace ControlClaro.Controllers
 
 
 
-                using (NewsService service = new NewsService())
+                using (NewService service = new NewService())
                 {
-                    var Noticias = service.list();
+                    var Noticias = service.TodasLasNoticias();
                     data.result = new { Noticias };
                     data.status = true;
                 }
@@ -88,47 +89,10 @@ namespace ControlClaro.Controllers
         }
 
 
-        [HttpPost]
-        [Route("api/news/update")]
-        public HttpResponseMessage update([FromBody] News news)
-        {
-            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-            ResponseConfig config = VerifyAuthorization(Request.Headers);
-            RestResponse data = new RestResponse();
-
-            try
-            {
-                VerifyMessage(config.errorMessage);
-
-                using (NewsService service = new NewsService())
-                {
-                    service.update(news);
-                    data.result = null;
-                    data.status = true;
-                    data.message = "Actualizacion de Noticia";
-                }
-            }
-            catch (Exception ex)
-            {
-                response.StatusCode = config.isAuthenticated ? HttpStatusCode.BadRequest : HttpStatusCode.Unauthorized;
-                data.status = false;
-                data.message = ex.Message;
-                data.error = NewError(ex, "Registro del usuario");
-            }
-            finally
-            {
-                response.Content = CreateContent(data);
-            }
-
-            return response;
-        }
- 
-
         [HttpDelete]
-        [Route("api/news/delete/{newsId}")]
-        public HttpResponseMessage delete(string newsId)
+        [Route("api/news/delete/{news_id}")]
+        public HttpResponseMessage DeleletComplain(int news_id)
         {
-
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             ResponseConfig config = VerifyAuthorization(Request.Headers);
             RestResponse data = new RestResponse();
@@ -137,21 +101,20 @@ namespace ControlClaro.Controllers
             {
                 VerifyMessage(config.errorMessage);
 
-                using (NewsService service = new NewsService())
+                using (NewService service = new NewService())
                 {
-                    service.delete(newsId);
+                    service.Delete(news_id);
                     data.result = null;
                     data.status = true;
-                    data.message = "La queja se eliminó correctamente";
+                    data.message = "Se ha eliminado la noticia";
                 }
             }
-
             catch (Exception ex)
             {
                 response.StatusCode = config.isAuthenticated ? HttpStatusCode.BadRequest : HttpStatusCode.Unauthorized;
                 data.status = false;
                 data.message = ex.Message;
-                data.error = NewError(ex, "Eliminar usuario");
+                data.error = NewError(ex, "Eliminar queja");
             }
             finally
             {
@@ -160,11 +123,6 @@ namespace ControlClaro.Controllers
 
             return response;
         }
-
-
-        //buscar
-
-
 
 
     }

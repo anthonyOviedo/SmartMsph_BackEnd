@@ -17,20 +17,20 @@ namespace ControlClaro.Controllers
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             RestResponse data = new RestResponse();
-            User user;
+            Usuario usuario;
             string token;
 
             try
             {
-                using (UserService service = new UserService())
+                using (UsuarioService service = new UsuarioService())
                 {
-                    user = service.VerifyCredentials(username, password);                    
+                    usuario = service.VerifyCredentials(username, password);
                 }
 
-                token = GenerateToken(user);
+                token = GenerateToken(usuario);
 
                 data.status = true;
-                data.result = new { user, token };
+                data.result = new { usuario, token };
             }
             catch (Exception ex)
             {
@@ -48,19 +48,19 @@ namespace ControlClaro.Controllers
         }
 
         [HttpPost]
-        [Route("api/signin/sigup")]
-        public HttpResponseMessage Guardar([FromBody] User user)
+        [Route("api/signin/registrarse")]
+        public HttpResponseMessage Guardar([FromBody] Usuario usuario)
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-            ResponseConfig config = VerifyAuthorization(Request.Headers);
+            /// ResponseConfig config = VerifyAuthorization(Request.Headers);
             RestResponse data = new RestResponse();
 
             try
             {
-               
-                using (UserService service = new UserService())
+
+                using (UsuarioService service = new UsuarioService())
                 {
-                    service.signUp(user);
+                    service.Registrarse(usuario);
                     data.result = null;
                     data.status = true;
                     data.message = "Registro exitoso";
@@ -68,7 +68,7 @@ namespace ControlClaro.Controllers
             }
             catch (Exception ex)
             {
-                response.StatusCode = config.isAuthenticated ? HttpStatusCode.BadRequest : HttpStatusCode.Unauthorized;
+                // response.StatusCode = config.isAuthenticated ? HttpStatusCode.BadRequest : HttpStatusCode.Unauthorized;
                 data.status = false;
                 data.message = ex.Message;
                 data.error = NewError(ex, "Registro");

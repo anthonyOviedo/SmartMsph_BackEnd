@@ -8,12 +8,12 @@ using static Business.Utilities.Functions;
 
 namespace ControlClaro.Controllers
 {
-    public class UserController : ApiController
+    public class UsuarioController : ApiController
     {
         #region Definition of Services
         [HttpGet]
-        [Route("api/user/list")]
-        public HttpResponseMessage list()
+        [Route("api/usuario/lista/{pais_Id}/{emp_Id}/{criterio}")]
+        public HttpResponseMessage Lista(int pais_Id, int emp_Id, string criterio)
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             ResponseConfig config = VerifyAuthorization(Request.Headers);
@@ -23,10 +23,13 @@ namespace ControlClaro.Controllers
             {
                 VerifyMessage(config.errorMessage);
 
-                using (UserService service = new UserService())
+                if (criterio == "_TODO_")
+                    criterio = "";
+
+                using (UsuarioService service = new UsuarioService())
                 {
-                    var usuarios = service.list();
-                    data.result = new { usuarios };
+                    var usuarios = service.Lista(pais_Id, emp_Id, criterio);
+                    data.result = new { usuarios, service.cantidad };
                     data.status = true;
                 }
             }
@@ -45,9 +48,10 @@ namespace ControlClaro.Controllers
             return response;
         }
 
+        
         [HttpDelete]
-        [Route("api/user/delete/{usuario_Id}")]
-        public HttpResponseMessage delete(string usuario_Id)
+        [Route("api/usuario/eliminar/{usuario_Id}/{emp_Id}/{producto_Id}")]
+        public HttpResponseMessage Eliminar(string usuario_Id)
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             ResponseConfig config = VerifyAuthorization(Request.Headers);
@@ -57,12 +61,12 @@ namespace ControlClaro.Controllers
             {
                 VerifyMessage(config.errorMessage);
 
-                using (UserService service = new UserService())
+                using (UsuarioService service = new UsuarioService())
                 {
-                    service.delete(usuario_Id);
+                    service.Eliminar(usuario_Id);
                     data.result = null;
                     data.status = true;
-                    data.message = "El user seleccionado se eliminó correctamente";
+                    data.message = "El usuario seleccionado se eliminó correctamente";
                 }
             }
             catch (Exception ex)
@@ -70,7 +74,7 @@ namespace ControlClaro.Controllers
                 response.StatusCode = config.isAuthenticated ? HttpStatusCode.BadRequest : HttpStatusCode.Unauthorized;
                 data.status = false;
                 data.message = ex.Message;
-                data.error = NewError(ex, "Eliminar user");
+                data.error = NewError(ex, "Eliminar usuario");
             }
             finally
             {
@@ -81,8 +85,8 @@ namespace ControlClaro.Controllers
         }
 
         [HttpPost]
-        [Route("api/user/changePassword/{newPassword}")]
-        public HttpResponseMessage ChangePassword([FromBody] User user, string newPassword)
+        [Route("api/usuario/change-password/{newPassword}")]
+        public HttpResponseMessage ChangePassword([FromBody] Usuario usuario, string newPassword)
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             ResponseConfig config = VerifyAuthorization(Request.Headers);
@@ -92,9 +96,9 @@ namespace ControlClaro.Controllers
             {
                 VerifyMessage(config.errorMessage);
 
-                using (UserService service = new UserService())
+                using (UsuarioService service = new UsuarioService())
                 {
-                    service.ChangePassword(user.usuario_Id, user.password, newPassword);
+                    service.ChangePassword(usuario.usuario_Id, usuario.password, newPassword);
                     data.result = null;
                     data.status = true;
                     data.message = "El cambio de contraseña se completó correctamente";
@@ -115,9 +119,10 @@ namespace ControlClaro.Controllers
             return response;
         }
 
-        [HttpPost]
-        [Route("api/user/update")]
-        public HttpResponseMessage update([FromBody] User user)
+
+        [HttpGet]
+        [Route("api/usuario/roles")]
+        public HttpResponseMessage ListRole()
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             ResponseConfig config = VerifyAuthorization(Request.Headers);
@@ -127,12 +132,11 @@ namespace ControlClaro.Controllers
             {
                 VerifyMessage(config.errorMessage);
 
-                using (UserService service = new UserService())
+                using (UsuarioService service = new UsuarioService())
                 {
-                    service.update(user);
-                    data.result = null;
+                    var roles = service.ListRole();
+                    data.result = new { roles };
                     data.status = true;
-                    data.message = "El Registro del user se completó correctamente";
                 }
             }
             catch (Exception ex)
@@ -140,7 +144,7 @@ namespace ControlClaro.Controllers
                 response.StatusCode = config.isAuthenticated ? HttpStatusCode.BadRequest : HttpStatusCode.Unauthorized;
                 data.status = false;
                 data.message = ex.Message;
-                data.error = NewError(ex, "Registro del user");
+                data.error = NewError(ex, "Lista de Roles");
             }
             finally
             {
@@ -150,9 +154,12 @@ namespace ControlClaro.Controllers
             return response;
         }
 
-        [HttpPost]
-        [Route("api/user/add")]
-        public HttpResponseMessage add([FromBody] User user)
+
+
+
+        [HttpGet]
+        [Route("api/usuario/admi")]
+        public HttpResponseMessage ListallUsers()
         {
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
             ResponseConfig config = VerifyAuthorization(Request.Headers);
@@ -162,12 +169,11 @@ namespace ControlClaro.Controllers
             {
                 VerifyMessage(config.errorMessage);
 
-                using (UserService service = new UserService())
+                using (UsuarioService service = new UsuarioService())
                 {
-                    service.add(user);
-                    data.result = null;
+                    var users = service.UsersWithAll();
+                    data.result = new { users };
                     data.status = true;
-                    data.message = "El Registro del user se completó correctamente";
                 }
             }
             catch (Exception ex)
@@ -175,7 +181,7 @@ namespace ControlClaro.Controllers
                 response.StatusCode = config.isAuthenticated ? HttpStatusCode.BadRequest : HttpStatusCode.Unauthorized;
                 data.status = false;
                 data.message = ex.Message;
-                data.error = NewError(ex, "Registro del user");
+                data.error = NewError(ex, "Lista de usuarios");
             }
             finally
             {
@@ -185,8 +191,45 @@ namespace ControlClaro.Controllers
             return response;
         }
 
-        //todo 
-            //search
+
+
+        [HttpDelete]
+        [Route("api/user/delete/{userid}")]
+        public HttpResponseMessage DeleteUser(int userid)
+        {
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            ResponseConfig config = VerifyAuthorization(Request.Headers);
+            RestResponse data = new RestResponse();
+
+            try
+            {
+                VerifyMessage(config.errorMessage);
+
+                using (UsuarioService service = new UsuarioService())
+                {
+                    service.DeleteUser(userid);
+                    data.result = null;
+                    data.status = true;
+                    data.message = "Se ha eliminado el usuario";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = config.isAuthenticated ? HttpStatusCode.BadRequest : HttpStatusCode.Unauthorized;
+                data.status = false;
+                data.message = ex.Message;
+                data.error = NewError(ex, "Eliminar Usuario");
+            }
+            finally
+            {
+                response.Content = CreateContent(data);
+            }
+
+            return response;
+        }
+
+
+
 
 
         #endregion
